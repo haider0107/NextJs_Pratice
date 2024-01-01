@@ -33,7 +33,6 @@ export const authOptions: NextAuthOptions = {
             email: credentials?.email,
           },
         });
-        console.log(existingUser);
 
         if (!existingUser) {
           return null;

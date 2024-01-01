@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import FormPost from "@/components/formPost";
 
 export default function Home() {
   return (
-    <main >
-     Hello
+    <main>
+      <FormPost />
     </main>
-  )
+  );
 }
