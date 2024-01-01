@@ -8,7 +8,7 @@ function Navbar() {
   const handleClick = () => setNav(!nav);
 
   return (
-    <div className="fixed w-full h-[80px] flex justify-between items-center px-4 bg-[#96B6C5] text-[#F1F0E8]">
+    <div className="fixed w-full h-[70px] flex justify-between items-center px-4 bg-[#96B6C5] text-[#F1F0E8]">
       <div>
         <h1 className="md:text-3xl text-2xl">Blog App</h1>
       </div>
