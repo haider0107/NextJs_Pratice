@@ -1,19 +1,48 @@
 "use client";
 
 import axios from "axios";
-import React, { FormEvent, useState } from "react";
+import React, { FC, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSession } from "next-auth/react";
 
-function FormPost() {
+interface FormCommentProps {
+  params: {
+    id: string;
+  };
+}
+
+const FormUpdate: FC<FormCommentProps> = ({ params }) => {
   const [heading, setHeading] = useState<string>("");
   const [editorValue, setEditorValue] = useState<string | undefined>(undefined);
   const router = useRouter();
   const { data } = useSession();
 
-  // console.log("Post form");
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get(`/api/posts/${params.id}/edit`);
+        console.log(res.data.success);
+      } catch (error) {
+        console.log(error);
+        router.push("/blogs");
+      }
+    })();
+
+    const fetchData = async () => {
+      try {
+        let res = await axios.get(`/api/posts/${params.id}`);
+        console.log(res.data.postData.title);
+
+        setHeading(res.data.postData.title);
+        setEditorValue(res.data.postData.content);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [params, router]);
 
   const handleEditorChange = (value: string) => {
     setEditorValue(value);
@@ -25,14 +54,14 @@ function FormPost() {
     console.log(heading + "\n" + editorValue);
 
     try {
-      const response = await axios.post("/api/posts", {
+      const response = await axios.patch(`/api/posts/${params.id}`, {
         title: heading,
         content: editorValue,
       });
 
       if (response.status === 200) {
         // router.push(`/blogs/${response.data.newPost.id}`);
-
+        console.log(response.data.updatePost);
         router.push("/blogs");
       }
     } catch (error) {
@@ -56,18 +85,23 @@ function FormPost() {
         />
       </div>
       <div className="mb-4">
-        <ReactQuill theme="snow" onChange={handleEditorChange} />
+        {/* {console.log(editorValue)} */}
+        <ReactQuill
+          theme="snow"
+          value={editorValue}
+          onChange={handleEditorChange}
+        />
       </div>
       <div>
         <button
           disabled={!data?.user?.id}
           className="px-7 py-2 text-white text-xl rounded-xl font-normal hover:bg-blue-500 bg-blue-400 disabled:bg-gray-400"
         >
-          POST
+          Update
         </button>
       </div>
     </form>
   );
-}
+};
 
-export default FormPost;
+export default FormUpdate;

@@ -2,6 +2,7 @@ import prisma from "@/prisma";
 import { getCurrentUser } from "@/utils/session";
 import { NextResponse } from "next/server";
 
+// Post a comment
 export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
 
     const { postId, text } = await req.json();
 
-    const newComment = await prisma.comment.create({
+    await prisma.comment.create({
       data: {
         postId,
         text,
@@ -23,10 +24,12 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ newComment }, { status: 200 });
+    return NextResponse.json(
+      { success: "Posted SuccessFully" },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Post route error" }, { status: 500 });
   }
 }
-

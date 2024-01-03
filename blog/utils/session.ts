@@ -3,7 +3,7 @@ import { authOptions } from "./auth";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
-  console.log(session);
+  // console.log(session);
   
   return session?.user;
 }

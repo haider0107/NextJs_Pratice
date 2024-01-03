@@ -2,6 +2,7 @@ import prisma from "@/prisma";
 import { getCurrentUser } from "@/utils/session";
 import { NextResponse } from "next/server";
 
+// Create a new Post
 export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
@@ -23,13 +24,14 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ newPost }, { status: 200 });
+    return NextResponse.json({ success:"Post created successfully" }, { status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Post route error" }, { status: 500 });
   }
 }
 
+// Get all post
 export async function GET(req: Request) {
   try {
     const allPost = await prisma.post.findMany({

@@ -9,6 +9,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface IFormInputs {
   username: string;
@@ -67,6 +68,9 @@ function SignUp() {
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
+      <div className="py-5 text-4xl font-semibold">
+        Sign Up
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col p-7 gap-3"
@@ -161,6 +165,11 @@ function SignUp() {
           type="submit"
         />
       </form>
+      <div className="text-lg">
+        <p>Already have an account ? <span className="text-blue-500 hover:text-blue-600"><Link href="/sign-in">
+        SignIn
+        </Link></span></p>
+      </div>
     </div>
   );
 }

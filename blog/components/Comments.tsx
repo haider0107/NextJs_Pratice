@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
+import { format } from 'date-fns';
 
 interface CommentsProps {
   postId: string;
@@ -44,7 +45,7 @@ const Comments: FC<CommentsProps> = ({ postId, fetchAgain }) => {
               <div className="text-blue-500 font-bold mr-2">
                 {comment.user.username}
               </div>
-              <div className="text-gray-500">12 Nov,2023</div>
+              <div className="text-gray-500">{format(comment.createdAt, 'MMMM d, yyyy')}</div>
             </div>
             <p>{comment.text}</p>
           </li>

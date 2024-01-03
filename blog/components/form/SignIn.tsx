@@ -8,6 +8,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton } from "@mui/material";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 interface IFormInputs {
   email: string;
@@ -44,6 +45,9 @@ function SignIn() {
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
+      <div className="py-5 text-4xl font-semibold">
+        Sign In
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col p-7 gap-3"
@@ -94,6 +98,11 @@ function SignIn() {
           type="submit"
         />
       </form>
+      <div className="text-lg">
+        <p>Don&apos;t have an account ? <span className="text-blue-500 hover:text-blue-600"><Link href="/sign-up">
+        SignIn
+        </Link></span></p>
+      </div>
     </div>
   );
 }

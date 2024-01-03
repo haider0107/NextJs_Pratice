@@ -1,6 +1,7 @@
 import prisma from "@/prisma";
 import { NextResponse } from "next/server";
 
+// Get comments for post
 export async function GET(req: Request) {
   try {
     const data = req.url.split("comments/")[1];
