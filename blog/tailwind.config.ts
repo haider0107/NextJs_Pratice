@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -15,6 +16,22 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addBase, theme }) {
+      addBase({
+        'h1': { fontSize: theme('fontSize.2xl') },
+        'h2': { fontSize: theme('fontSize.xl') },
+        'h3': { fontSize: theme('fontSize.lg') },
+        'ol': {
+          listStyleType: 'decimal',
+          paddingLeft: theme('spacing.4'), // Adjust the left padding as needed
+        },
+        'ul': {
+          listStyleType: 'disc',
+          paddingLeft: theme('spacing.4'), // Adjust the left padding as needed
+        },
+      });
+    }),
+  ],
 }
 export default config

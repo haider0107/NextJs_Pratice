@@ -20,7 +20,7 @@ const schema = yup.object().shape({
 });
 
 function SignIn() {
-  const [showPassword, setShowPassword] = useState("false");
+  const [showPassword, setShowPassword] = useState(true);
 
   const {
     control,
@@ -35,13 +35,10 @@ function SignIn() {
       const signInData = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl:"/"
+        callbackUrl: "/",
       });
-      console.log(signInData);
-      
     } catch (error) {
       console.log(error);
-      
     }
   };
 
@@ -89,7 +86,7 @@ function SignIn() {
             )}
           />
           <IconButton onClick={() => setShowPassword((pass) => !pass)}>
-            {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </IconButton>
         </div>
         <input

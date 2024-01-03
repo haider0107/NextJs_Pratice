@@ -33,7 +33,7 @@ const schema = yup.object().shape({
 });
 
 function SignUp() {
-  const [showPassword, setShowPassword] = useState("false");
+  const [showPassword, setShowPassword] = useState(true);
   const router = useRouter();
 
   const {
@@ -128,7 +128,7 @@ function SignUp() {
             )}
           />
           <IconButton onClick={() => setShowPassword((pass) => !pass)}>
-            {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </IconButton>
         </div>
         <div className="flex items-center justify-center border-2 px-2">
@@ -153,7 +153,7 @@ function SignUp() {
             )}
           />
           <IconButton onClick={() => setShowPassword((pass) => !pass)}>
-            {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </IconButton>
         </div>
         <input

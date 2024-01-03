@@ -1,4 +1,4 @@
-import FormPost from "@/components/formPost";
+import FormPost from "@/components/FormPost";
 
 export default function Home() {
   return (

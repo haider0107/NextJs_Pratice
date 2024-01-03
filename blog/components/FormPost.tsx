@@ -1,12 +1,17 @@
 "use client";
 
+import axios from "axios";
 import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 function FormPost() {
   const [heading, setHeading] = useState<string>("");
   const [editorValue, setEditorValue] = useState<string | undefined>(undefined);
+  const router = useRouter();
+
+  // console.log("Post form");
 
   const handleEditorChange = (value: string) => {
     console.log(value);
@@ -15,9 +20,24 @@ function FormPost() {
     // You can perform other actions with the editor value if needed
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(heading + "\n" + editorValue);
+
+    try {
+      const response = await axios.post("/api/posts", {
+        title: heading,
+        content: editorValue,
+      });
+
+      if (response.status === 200) {
+        // router.push(`/blogs/${response.data.newPost.id}`);
+        console.log(response);
+        
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

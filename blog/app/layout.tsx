@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
+import Provider from "@/components/Provider";
 
 export const metadata: Metadata = {
   title: "Blog App",
@@ -17,12 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AntdRegistry>
+        <Provider>
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <Navbar />
             {children}
           </AppRouterCacheProvider>
-        </AntdRegistry>
+        </Provider>
       </body>
     </html>
   );
