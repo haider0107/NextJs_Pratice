@@ -1,15 +1,17 @@
 "use client";
 
 import axios from "axios";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState,useMemo  } from "react";
 import { useRouter } from "next/navigation";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
 
 function FormPost() {
   const [heading, setHeading] = useState<string>("");
   const [editorValue, setEditorValue] = useState<string | undefined>(undefined);
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
   const router = useRouter();
   const { data } = useSession();
 
