@@ -58,7 +58,7 @@ export async function PATCH(req: Request) {
       },
     });
 
-    return NextResponse.json({ success:"Post updated" }, { status: 200 });
+    return NextResponse.json({ success: "Post updated" }, { status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json(
@@ -67,6 +67,38 @@ export async function PATCH(req: Request) {
     );
   }
 }
+
+const deleteComments = async (postId: string) => {
+  try {
+    const comments = await prisma.comment.findMany({
+      where: {
+        postId: postId,
+      },
+    });
+
+    if (comments) {
+      let commentId = comments.map((ele) => ele.id);
+      const deleteComments = await prisma.comment.deleteMany({
+        where: {
+          id: {
+            in: commentId,
+          },
+        },
+      });
+      console.log(deleteComments);
+
+      if (deleteComments) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Delete a Post
 export async function DELETE(req: Request) {
@@ -81,11 +113,20 @@ export async function DELETE(req: Request) {
     }
 
     const data = req.url.split("posts/")[1];
-    await prisma.post.delete({
-      where: {
-        id: data,
-      },
-    });
+
+    const isCommentDeleted = await deleteComments(data);
+    if (isCommentDeleted) {
+      await prisma.post.delete({
+        where: {
+          id: data,
+        },
+      });
+    } else {
+      return NextResponse.json(
+        { message: "Comment deletion problem" },
+        { status: 401 }
+      );
+    }
 
     return NextResponse.json(
       { success: "Post deleted successfully" },
