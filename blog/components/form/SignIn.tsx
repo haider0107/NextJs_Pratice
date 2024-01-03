@@ -100,7 +100,7 @@ function SignIn() {
       </form>
       <div className="text-lg">
         <p>Don&apos;t have an account ? <span className="text-blue-500 hover:text-blue-600"><Link href="/sign-up">
-        SignIn
+        SignUp
         </Link></span></p>
       </div>
     </div>
